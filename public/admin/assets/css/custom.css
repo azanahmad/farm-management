@@ -1,0 +1,97 @@
+.question-pick ul{
+  border-radius: 0;
+  overflow-y: scroll;
+  height: 500px;
+}
+.question-pick ul li{
+  background: #c8deff;
+  border: 1px solid #0665d0 !important;
+  border-radius: 0;
+}
+
+.question-pick ul::-webkit-scrollbar-track
+{
+	background-color: transparent;
+}
+
+.question-pick ul::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+.question-pick ul::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #cbcace;
+}
+
+
+.quiz .accordion{
+  background: #eeeeef;
+  border-radius: 10px;
+}
+.quiz .accordion a i{
+  background: red;
+border-radius: 50%;
+padding: 5px;
+color: #fff;
+}
+.round {
+  position: relative;
+}
+
+.round label {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 20px;
+}
+.round label::after {
+  border: 2px solid #fff;
+  border-top: none;
+  border-right: none;
+  content: "";
+  height: 6px;
+  left: 3px;
+  opacity: 0;
+  position: absolute;
+  top: 5px;
+  transform: rotate(-45deg);
+  width: 12px;
+  background-image:none !important;
+}
+.round label::before {
+  border: 2px solid #fff;
+  border-top: none;
+  border-right: none;
+  content: "";
+  height: 6px;
+  left: 7px;
+  opacity: 0;
+  position: absolute;
+  top: 8px;
+  transform: rotate(-45deg);
+  width: 12px;
+  display: none;
+}
+.round label span{
+  margin-left: 40px;
+}
+.round input[type="radio"] {
+  visibility: hidden;
+}
+
+.round input[type="radio"]:checked + label {
+  background-color: #66bb6a;
+  border-color: #66bb6a;
+}
+
+.round input[type="radio"]:checked + label:after {
+  opacity: 1;
+}
