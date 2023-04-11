@@ -6,7 +6,7 @@
             <!-- Layouts -->
             <div class="block block-rounded">
                 <div class="block-header block-header-default">
-                    <h3 class="block-title">Edit Stock</h3>
+                    <h3 class="block-title">Update Stock : ({{$stock->name}})</h3>
                 </div>
                 <div class="block-content">
                     <!-- Layout -->
@@ -18,7 +18,7 @@
                             @include('admin.partials.success_errors_badges')
                             <div class="form-group form-row">
                                 <div class="col-md-12">
-                                    <label>Code<span style="color: red">*</span></label>
+                                    <label>Code</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -27,6 +27,20 @@
                                         </div>
                                         <input type="text" class="form-control" id="example-group2-input1"
                                                value="{{old('code',$stock->code)}}" placeholder="Code" readonly>
+                                    </div>
+                                </div><!--col-6 ended-->
+                            </div><!--form-row ended-->
+                            <div class="form-group form-row">
+                                <div class="col-md-12">
+                                    <label>Available Quantity</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="far fa-user"></i>
+                                                    </span>
+                                        </div>
+                                        <input type="text" class="form-control" id="example-group2-input1"
+                                               value="{{$stock->quantity}}" readonly>
                                     </div>
                                 </div><!--col-6 ended-->
                             </div><!--form-row ended-->
@@ -43,6 +57,7 @@
                                                value="{{old('price',$stock->price ?? "")}}" name="price"
                                                placeholder="Price">
                                     </div>
+
                                     @error('price')
                                     <div class="alert alert-danger">{{$message}}</div>
                                     @enderror
@@ -56,7 +71,8 @@
                                                     </span>
                                         </div>
                                         <input type="number" class="form-control" id="example-group2-input1"
-                                               value="{{old('quantity',$stock->quantity ?? "")}}" name="quantity"
+                                               value="{{old('quantity')}}" name="quantity"
+                                               min="0"
                                                placeholder="Quantity">
                                     </div>
                                     @error('quantity')
@@ -65,7 +81,7 @@
                                 </div><!--col-6 ended-->
                             </div><!--form-row ended-->
                             <div class="form-group form-row">
-                                <div class="col-md-6">
+                                <div class="col-md-1.5">
                                     <div class="input-group">
                                         <button type="submit" class="btn btn-primary" onclick="change_click()"
                                                 id="button">Update Stock
@@ -76,6 +92,12 @@
                                         </button>
                                     </div>
                                 </div><!--col-6 ended-->
+                                <div class="col-md-1.5">
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-secondary" onclick='window.location.href="{{route('stock.list')}}"'>Go back
+                                        </button>
+                                    </div>
+                                </div>
                             </div><!---form-row ended-->
                         </div>
                     </form>

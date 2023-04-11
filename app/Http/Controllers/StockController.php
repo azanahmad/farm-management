@@ -40,48 +40,38 @@ class StockController extends Controller
         try {
 
             DB::beginTransaction();
-            $flag = true;
             $quantity = $request->quantity;
 
             $ingredient = Ingredient::updateOrCreate(
                 ['id' => $id]
             );
 
-            if (isset($ingredient->id) && ($ingredient->price == $request->price && $ingredient->quantity == $request->quantity)) {
-                $flag = false;
-            }
-
-            if (isset($ingredient->id) && ($ingredient->quantity != $request->quantity)) {
-                $quantity = $request->quantity - $ingredient->quantity;
-            }
             $ingredient->price = $request->price;
-            $ingredient->quantity = $request->quantity;
+            $ingredient->quantity = $request->quantity + $ingredient->quantity;
             $ingredient->save();
-
-            if ($flag) {
-                $data = [
-                    'ingredient_id' => $ingredient->id,
-                    'quantity' => $quantity,
-                    'price' => $request->price,
-                    'stock' => 1,
-                    'purchase_date' => now()->toDateString(),
-                    'use_date' => null
-                ];
-                $this->saveStockLog($data);
-            }
+            $data = [
+                'ingredient_id' => $ingredient->id,
+                'quantity' => $quantity,
+                'price' => $request->price,
+                'stock' => 1,
+                'purchase_date' => now()->toDateString(),
+                'use_date' => null
+            ];
+            $this->saveStockLog($data);
             DB::commit();
-            return redirect()->back()->with('success', 'Stock Update Successfully');
+            return redirect()->back()->with('success', 'Stock Updated Successfully');
         } catch (\Exception $exception) {
             DB::rollBack();
             return redirect()->back()->with('error', $exception->getMessage())->withInput();
         }
     }
 
-    function view($id){
+    function view($id)
+    {
 
         try {
 
-            $stockLogs = StockLog::where('ingredient_id',$id)->get();
+            $stockLogs = StockLog::where('ingredient_id', $id)->get();
             if ($stockLogs)
                 return view('admin.stock.view', compact('stockLogs'));
             else
